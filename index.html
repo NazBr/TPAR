@@ -23,7 +23,41 @@ Exercice 1
                animation="property: rotation; to: 0 360 0; loop: true; dur: 10000">
         </a-box>
       </a-marker>
-      <a-entity camera></a-entity>
+      <a-entity camera>
+        <a-cursor 
+          fuse="true" 
+          fuse-timeout="500" 
+          material="color: white; shader: flat">
+        </a-cursor>
+      </a-entity>
+    </a-scene>
+
+    <script>
+      const box = document.querySelector('#box');
+
+      box.addEventListener('click', () => {
+        // Change de couleur aléatoire
+        const randomColor = '#'+Math.floor(Math.random()*16777215).toString(16);
+        box.setAttribute('material', 'color', randomColor);
+
+        // Change vitesse de rotation
+        box.setAttribute('animation__spin', {
+          property: 'rotation',
+          to: '0 360 0',
+          loop: true,
+          dur: 2000   // plus rapide
+        });
+
+        // Animation d’échelle (zoom puis retour)
+        box.setAttribute('animation__scale', {
+          property: 'scale',
+          to: '1.5 1.5 1.5',
+          dur: 500,
+          dir: 'alternate',
+          loop: 2
+        });
+      });
+    </script>
     </a-scene>
   </body>
 </html>
