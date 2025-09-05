@@ -4,8 +4,8 @@
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
   </head>
   <body>
-    <a-scene embeded arjs>
-      <!--
+    <a-scene embedded arjs>
+            <!--
 Exercice 1 
 
       <a-box position="-1 0.5 -3" rotation="0 45 0" color="#4CC3D9"></a-box>
@@ -15,9 +15,12 @@ Exercice 1
       <a-entity camera look-controls position="0 3 5"></a-entity>
     
       -->
-      <a-marker preset='hiro'>
-        <a-box position='0 0 0' material='opacity: 0.5; side:double; color:red;' rotation="0 0 0" animation="property: rotation; to: 0 360 0; loop: true; dur: 10000">
 
+      <a-marker preset="hiro">    
+        <a-box position="0 0 0"
+               material="opacity: 0.5; side: double; color: red;"
+               rotation="0 0 0"
+               animation="property: rotation; to: 0 360 0; loop: true; dur: 10000">
         </a-box>
       </a-marker>
     </a-scene>
