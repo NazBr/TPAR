@@ -1,0 +1,138 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+    <style>
+        body, html {
+          margin: 0;
+          padding: 0;
+          overflow: hidden;
+          height: 100%;
+          width: 100%;
+        }
+        .hidden {
+            display: none;
+        }
+        .slider-overlay {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          background: rgba(0,0,0,0.5);
+          padding: 15px 25px;
+          border-radius: 12px;
+        }
+        input[type="range"] {
+          width: 300px;
+        }
+        .buttonblue {
+			color: #ffffff;
+			background-color: #2d63c8;
+			padding: 25px 50px;
+			cursor: pointer;
+            position: absolute;
+            top: 60%;
+            left: 43%;
+		}
+        .buttonred {
+			color: #ffffff;
+			background-color: #ff0000;
+			padding: 25px 50px;
+			cursor: pointer;
+            position: absolute;
+            top: 60%;
+            left: 51%;
+		}
+        .buttonyellow {
+			color: #ffffff;
+			background-color: #ffff00;
+			padding: 25px 50px;
+			cursor: pointer;
+            position: absolute;
+            top: 70%;
+            left: 43%;
+		}
+        .buttongreen {
+			color: #ffffff;
+			background-color: #20d205;
+			padding: 25px 50px;
+			cursor: pointer;
+            position: absolute;
+            top: 70%;
+            left: 51%;
+		}
+      </style>
+  </head>
+  <body>
+    <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;">
+      <a-marker preset="hiro" id="hiroMarker">    
+        <a-box id="box"
+               position="0 0.5 0"
+               scale="1 1 1"
+               material="opacity: 0.8; color: red;">
+        </a-box>
+      </a-marker>
+
+      <a-entity camera></a-entity>
+    </a-scene>
+
+    <div class="slider-overlay hidden" id="slider-container">
+        <input id="myslider" type="range" min="0.1" max="3.0" step="0.1" value="1">
+    </div>
+
+    <button class="buttonblue hidden" id="blue"></button>
+    <button class="buttonred hidden" id="red"></button>
+    <button class="buttonyellow hidden" id="yellow"></button>
+    <button class="buttongreen hidden" id="green"></button>
+
+    <footer>
+      <nav>
+        <a href="index.html">Menu</a>
+        <a href="index2.html">Exercice 1</a>
+        <a href="index1.html">Exercice 2/3</a>
+        <a href="index3.html">Exercice 4</a>
+      </nav>
+    </footer>
+
+    <script>
+        const slider = document.getElementById("myslider");
+        const sliderContainer = document.getElementById("slider-container");
+        const box = document.getElementById("box");
+        const blue = document.getElementById("blue");
+        const red = document.getElementById("red");
+        const yellow = document.getElementById("yellow");
+        const green = document.getElementById("green");
+        const marker = document.getElementById("hiroMarker");
+
+        marker.addEventListener("markerFound", () => {
+            console.log("Hiro détecté");
+            sliderContainer.classList.remove("hidden");
+            blue.classList.remove("hidden");
+            red.classList.remove("hidden");
+            yellow.classList.remove("hidden");
+            green.classList.remove("hidden");
+        });
+
+        marker.addEventListener("markerLost", () => {
+            console.log("Hiro perdu");
+            sliderContainer.classList.add("hidden");
+            blue.classList.add("hidden");
+            red.classList.add("hidden");
+            yellow.classList.add("hidden");
+            green.classList.add("hidden");
+        });
+
+        slider.addEventListener("input", e => {
+            let val = parseFloat(e.target.value);
+            if (isNaN(val) || val < 0.1) val = 0.1; 
+            box.setAttribute("scale", `${val} ${val} ${val}`);
+        });
+
+        blue.addEventListener("click", e => box.setAttribute("color", `blue`));
+        red.addEventListener("click", e => box.setAttribute("color", `red`));
+        yellow.addEventListener("click", e => box.setAttribute("color", `yellow`));
+        green.addEventListener("click", e => box.setAttribute("color", `green`));
+      </script>
+  </body>
+</html>
